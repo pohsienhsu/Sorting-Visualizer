@@ -15,6 +15,8 @@ class DrawConfigs:
         (192, 192, 192)
     ]
     
+    FONT = pygame.font.SysFont('comicsans', 20)
+    LARGE_FONT = pygame.font.SysFont('comicsans', 30)
     SIDE_PAD = 100
     TOP_PAD = 150
     
@@ -40,8 +42,16 @@ class DrawConfigs:
 
 def draw(draw_data):
     draw_data.window.fill(draw_data.BG_COLOR)
+    
+    controls = draw_data.FONT.render("R - Reset | SPACE - Start | A - Ascending | D - Descending", 1, draw_data.BLACK)
+    draw_data.window.blit(controls, (draw_data.width//2-controls.get_width()//2, 5))
+    
+    sorting = draw_data.FONT.render("I - Insertion Sort | B - Bubble Sort", 1, draw_data.BLACK)
+    draw_data.window.blit(sorting, (draw_data.width//2-sorting.get_width()//2, 35))
+    
     draw_bars(draw_data)
     pygame.display.update()
+    
     
 def draw_bars(draw_data):
     data = draw_data.data
@@ -74,6 +84,9 @@ def main():
     data = generate_starting_data(n, min_val, max_val)
     draw_data = DrawConfigs(800, 600, data)
     
+    sorting = False
+    ascending = True
+    
     while run:
         clock.tick(60)
         
@@ -89,6 +102,16 @@ def main():
             if event.key == pygame.K_r:
                 data = generate_starting_data(n, min_val, max_val)
                 draw_data.set_list(data)
+                sorting = False
+                            
+            elif event.key == pygame.K_SPACE and not sorting:
+                sorting = True
+                
+            elif event.key == pygame.K_a and not sorting and not ascending:
+                ascending = True
+                
+            elif event.key == pygame.K_SPACE and not sorting and ascending:
+                ascending = True
                 
     pygame.quit()
     
