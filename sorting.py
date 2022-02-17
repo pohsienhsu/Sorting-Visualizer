@@ -14,5 +14,28 @@ def bubble_sort(draw_data, ascending=True, draw_func=None):
     return data
 
 
+def insertion_sort(draw_data, ascending=True, draw_func=None):
+    data = draw_data.data
+    
+    for i in range(1, len(data)):
+        curr = data[i]
+        
+        while True:
+            ascending_sort = i > 0 and data[i-1] > curr and ascending
+            descending_sort = i > 0 and data[i-1] < curr and not ascending
+            
+            if not ascending_sort and not descending_sort:
+                break
+            
+            data[i] = data[i-1]
+            i = i-1
+            data[i] = curr
+            draw_func(draw_data, {i-1: draw_data.GREEN, i: draw_data.RED}, True)
+            yield True
+    
+    return data
+            
+
+
 
     

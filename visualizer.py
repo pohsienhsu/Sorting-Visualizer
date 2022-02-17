@@ -3,7 +3,7 @@ import random as rand
 import math
 pygame.init()
 
-from sorting import bubble_sort
+from sorting import bubble_sort, insertion_sort
 
 class DrawConfigs:
     BLACK = 0, 0, 0
@@ -138,6 +138,14 @@ def main():
                 
             elif event.key == pygame.K_d and not sorting and ascending:
                 ascending = False
+            
+            elif event.key == pygame.K_i and not sorting:
+                sorting_algo = insertion_sort
+                sorting_algo_name = "Insertion Sort"
+                
+            elif event.key == pygame.K_b and not sorting:
+                sorting_algo = bubble_sort
+                sorting_algo_name = "Bubble Sort"
                 
     pygame.quit()
     
